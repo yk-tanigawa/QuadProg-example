@@ -1,5 +1,6 @@
 /*
  File main.cc
+ => renamed to test.cpp
  
  This file contains just an example on how to set-up the matrices for using with
  the solve_quadprog() function.
@@ -54,7 +55,7 @@
 int main (int argc, char *const argv[]) {
   Matrix<double> G, CE, CI;
   Vector<double> g0, ce0, ci0, x;
-  int n, m, p;
+  int n, m = 0, p = 0;
   double sum = 0.0;
   char ch;
   
@@ -76,7 +77,17 @@ int main (int argc, char *const argv[]) {
     for (int i = 0; i < n; i++)
       is >> g0[i] >> ch;
   }
-  
+
+  m = 0;
+  CE.resize(n, m);
+  ce0.resize(m);
+
+  p = 0;
+  CI.resize(n, p);
+  ci0.resize(p);
+
+
+#if 0
   m = 1;
   CE.resize(n, m);
   {
@@ -95,7 +106,7 @@ int main (int argc, char *const argv[]) {
     for (int j = 0; j < m; j++)
       is >> ce0[j] >> ch;
   }
-	
+
   p = 3;
   CI.resize(n, p);
   {
@@ -106,7 +117,7 @@ int main (int argc, char *const argv[]) {
       for (int j = 0; j < p; j++)
 	is >> CI[i][j] >> ch;
   }
-  
+
   ci0.resize(p);
   {
     std::istringstream is("0.0, 0.0, -2.0 ");
@@ -114,7 +125,9 @@ int main (int argc, char *const argv[]) {
     for (int j = 0; j < p; j++)
       is >> ci0[j] >> ch;
   }
+#endif  
   x.resize(n);
+
 
   std::cout << "f: " << solve_quadprog(G, g0, CE, ce0, CI, ci0, x) << std::endl;
   std::cout << "x: " << x << std::endl;
