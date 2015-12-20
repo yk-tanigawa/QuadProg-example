@@ -8,7 +8,10 @@ DEPS = $(SRCS:.c=.dep)
 EXEC = $(SRCS:.c=)
 RM = rm -f
 
-all: test
+all: QPwithFile
+
+QPwithFile: QPwithFile.o QuadProg++.o
+	$(LD) $(LDFLAGS) -o $@ $^
 
 test: test.o QuadProg++.o
 	$(LD) $(LDFLAGS) -o $@ $^
